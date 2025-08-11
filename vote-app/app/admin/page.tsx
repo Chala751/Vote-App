@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 interface Vote {
   _id: string
@@ -32,8 +34,10 @@ export default function AdminDashboard() {
 
   // Delete vote by ID
   const deleteVote = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this vote?')) return
+
     try {
-      await axios.delete(`/api/admin/votes/${id}`, {
+      await axios.delete(`/api/admin/votes?id=${id}`, {
         headers: { 'x-admin-secret': ADMIN_SECRET },
       })
       toast.success('Vote deleted')
@@ -59,56 +63,103 @@ export default function AdminDashboard() {
   const winner = Object.entries(tally).sort((a, b) => b[1] - a[1])[0]
 
   return (
-    <main className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard - Votes</h1>
+    <main className="p-6 max-w-full mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg">
+      {/* Back to Home Link */}
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+        >
+          <ArrowLeft className="mr-2 h-5 w-5" />
+          Back to Home
+        </Link>
+      </div>
+
+      <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-900 dark:text-white drop-shadow-md">
+        Admin Dashboard - Votes
+      </h1>
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-center text-gray-600 dark:text-gray-300">Loading...</p>
       ) : (
         <>
-          <h2 className="mb-4 text-xl">
-            Current Winner:{' '}
-            <span className="font-semibold">
+          <div className="mb-8 text-center">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+              Current Winner:
+            </h2>
+            <p
+              className="mt-2 inline-block px-4 py-1 rounded-full text-white font-semibold text-lg
+              bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 shadow-lg"
+            >
               {winner ? `${winner[0]} (${winner[1]} votes)` : 'No votes yet'}
-            </span>
-          </h2>
+            </p>
+          </div>
 
-          <table className="w-full border-collapse border border-gray-300 dark:border-gray-600">
-            <thead>
-              <tr>
-                <th className="border border-gray-300 dark:border-gray-600 p-2">Voter IP</th>
-                <th className="border border-gray-300 dark:border-gray-600 p-2">Player</th>
-                <th className="border border-gray-300 dark:border-gray-600 p-2">Voted At</th>
-                <th className="border border-gray-300 dark:border-gray-600 p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {votes.map((vote) => (
-                <tr key={vote._id}>
-                  <td className="border border-gray-300 dark:border-gray-600 p-2">{vote.ip}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 p-2">{vote.player}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 p-2">
-                    {new Date(vote.createdAt).toLocaleString()}
-                  </td>
-                  <td className="border border-gray-300 dark:border-gray-600 p-2 text-center">
-                    <button
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                      onClick={() => deleteVote(vote._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {votes.length === 0 && (
+          <div className="overflow-x-auto rounded-lg shadow-md">
+            <table className="min-w-full bg-white dark:bg-gray-800">
+              <thead className="bg-gray-200 dark:bg-gray-700">
                 <tr>
-                  <td colSpan={4} className="text-center p-4">
-                    No votes found.
-                  </td>
+                  <th className="text-left py-3 px-5 text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                    Voter IP
+                  </th>
+                  <th className="text-left py-3 px-5 text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                    Player
+                  </th>
+                  <th className="text-left py-3 px-5 text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                    Voted At
+                  </th>
+                  <th className="text-center py-3 px-5 text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {votes.map((vote) => (
+                  <tr
+                    key={vote._id}
+                    className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                  >
+                    <td className="py-4 px-5 text-sm text-gray-800 dark:text-gray-300 font-mono">
+                      {vote.ip}
+                    </td>
+
+                    <td className="py-4 px-5 text-sm">
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-white font-semibold ${
+                          vote.player === 'Ronaldo' ? 'bg-blue-600' : 'bg-red-600'
+                        }`}
+                      >
+                        {vote.player}
+                      </span>
+                    </td>
+
+                    <td className="py-4 px-5 text-sm text-gray-600 dark:text-gray-400">
+                      {new Date(vote.createdAt).toLocaleString()}
+                    </td>
+
+                    <td className="py-4 px-5 text-center">
+                      <button
+                        onClick={() => deleteVote(vote._id)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-md transition-colors duration-200 cursor-pointer"
+                        aria-label={`Delete vote by ${vote.ip}`}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+
+                {votes.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="text-center py-6 text-gray-600 dark:text-gray-400">
+                      No votes found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </main>
