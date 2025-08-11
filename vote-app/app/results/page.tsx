@@ -1,5 +1,6 @@
 import { connectDB } from '@/lib/db'
 import Vote from '@/models/Vote'
+import BackToHomeButton from './BackToHomeButton'  // client button component import
 
 export default async function ResultsPage() {
   await connectDB()
@@ -44,6 +45,9 @@ export default async function ResultsPage() {
             </div>
           )
         })}
+
+        {/* Back to home button */}
+        <BackToHomeButton />
       </div>
     </main>
   )
