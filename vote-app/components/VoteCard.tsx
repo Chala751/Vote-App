@@ -91,7 +91,7 @@ export default function VoteCard() {
           >
             <div className="flex flex-col items-center p-6">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Lionel_Messi_20180626.jpg"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Lionel_Messi_20180626_%283x4_cropped%29.jpg"
                 alt="Lionel Messi"
                 className="w-40 h-40 object-cover rounded-full border-4 border-red-400 shadow-md"
               />
