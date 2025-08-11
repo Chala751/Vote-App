@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 interface Vote {
   _id: string
   player: string
-  voterId: string
+  ip: string
   createdAt: string
 }
 
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
           <table className="w-full border-collapse border border-gray-300 dark:border-gray-600">
             <thead>
               <tr>
-                <th className="border border-gray-300 dark:border-gray-600 p-2">Voter ID</th>
+                <th className="border border-gray-300 dark:border-gray-600 p-2">Voter IP</th>
                 <th className="border border-gray-300 dark:border-gray-600 p-2">Player</th>
                 <th className="border border-gray-300 dark:border-gray-600 p-2">Voted At</th>
                 <th className="border border-gray-300 dark:border-gray-600 p-2">Actions</th>
@@ -85,7 +85,7 @@ export default function AdminDashboard() {
             <tbody>
               {votes.map((vote) => (
                 <tr key={vote._id}>
-                  <td className="border border-gray-300 dark:border-gray-600 p-2">{vote.voterId}</td>
+                  <td className="border border-gray-300 dark:border-gray-600 p-2">{vote.ip}</td>
                   <td className="border border-gray-300 dark:border-gray-600 p-2">{vote.player}</td>
                   <td className="border border-gray-300 dark:border-gray-600 p-2">
                     {new Date(vote.createdAt).toLocaleString()}
