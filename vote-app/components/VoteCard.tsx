@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'  // import useRouter
+import { useRouter } from 'next/navigation'
 
 export default function VoteCard() {
   const [voted, setVoted] = useState(false)
@@ -12,7 +12,7 @@ export default function VoteCard() {
     Messi: 0,
   })
 
-  const router = useRouter()  // initialize router
+  const router = useRouter()
 
   const fetchResults = async () => {
     try {
@@ -36,11 +36,10 @@ export default function VoteCard() {
       setVoted(true)
       toast.success('✅ Thanks for voting!')
 
-      // Redirect to results page after a short delay (to show toast)
+      // Redirect to results page after a short delay
       setTimeout(() => {
-        router.push('/results')  // change to your results page route
+        router.push('/results')
       }, 1500)
-
     } catch (err: any) {
       toast.error(err.response?.data?.message || '❌ Error while voting')
     }
@@ -106,8 +105,9 @@ export default function VoteCard() {
             </div>
           </div>
         </div>
+        
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="flex justify-center gap-8 text-lg font-bold">
             <div className="flex flex-col items-center">
               <span className="text-blue-600">Ronaldo</span>
@@ -118,8 +118,16 @@ export default function VoteCard() {
               <span>{results.Messi} votes</span>
             </div>
           </div>
+
+          
         </div>
       )}
+      <button
+            onClick={() => router.push('/results')}
+            className="mt-4 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg shadow-md transition-colors duration-300 flex items-center justify-center cursor-pointer"
+          >
+            See Full Results
+          </button>
     </div>
   )
 }
