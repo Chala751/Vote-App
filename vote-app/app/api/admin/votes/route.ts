@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'GET') {
     // Return all votes with voter info
-    const votes = await Vote.find({}, { voterId: 1, player: 1, createdAt: 1 }).lean()
+    const votes = await Vote.find({}, { ip: 1, player: 1, createdAt: 1 }).lean()
     return res.status(200).json(votes)
   } else {
     res.setHeader('Allow', 'GET')
