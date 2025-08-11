@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'  // import useRouter
 
 export default function VoteCard() {
   const [voted, setVoted] = useState(false)
@@ -10,6 +11,8 @@ export default function VoteCard() {
     Ronaldo: 0,
     Messi: 0,
   })
+
+  const router = useRouter()  // initialize router
 
   const fetchResults = async () => {
     try {
@@ -32,7 +35,12 @@ export default function VoteCard() {
       await axios.post('/api/vote', { player })
       setVoted(true)
       toast.success('✅ Thanks for voting!')
-      fetchResults()
+
+      // Redirect to results page after a short delay (to show toast)
+      setTimeout(() => {
+        router.push('/results')  // change to your results page route
+      }, 1500)
+
     } catch (err: any) {
       toast.error(err.response?.data?.message || '❌ Error while voting')
     }
