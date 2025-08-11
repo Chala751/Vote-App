@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function VoteCard() {
   const [voted, setVoted] = useState(false)
-  const [message, setMessage] = useState('')
   const [results, setResults] = useState<{ Ronaldo: number; Messi: number }>({
     Ronaldo: 0,
     Messi: 0,
@@ -31,10 +31,10 @@ export default function VoteCard() {
     try {
       await axios.post('/api/vote', { player })
       setVoted(true)
-      setMessage('Thanks for voting!')
+      toast.success('✅ Thanks for voting!')
       fetchResults()
     } catch (err: any) {
-      setMessage(err.response?.data?.message || 'Error')
+      toast.error(err.response?.data?.message || '❌ Error while voting')
     }
   }
 
@@ -44,6 +44,9 @@ export default function VoteCard() {
 
   return (
     <div className="max-w-5xl mx-auto text-center space-y-8 p-6">
+      {/* Toast container */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white drop-shadow-lg">
         Who is the <span className="text-yellow-500">GOAT</span>?
       </h1>
@@ -97,7 +100,6 @@ export default function VoteCard() {
         </div>
       ) : (
         <div className="space-y-4">
-          <p className="text-xl font-semibold text-green-600">{message}</p>
           <div className="flex justify-center gap-8 text-lg font-bold">
             <div className="flex flex-col items-center">
               <span className="text-blue-600">Ronaldo</span>
