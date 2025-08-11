@@ -122,12 +122,6 @@ export default function VoteCard() {
           
         </div>
       )}
-      <button
-            onClick={() => router.push('/results')}
-            className="mt-4 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg shadow-md transition-colors duration-300 flex items-center justify-center cursor-pointer"
-          >
-            See Full Results
-          </button>
     </div>
   )
 }
