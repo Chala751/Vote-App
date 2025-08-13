@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🗳️ Vote-App
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC?logo=tailwindcss)
+![License](https://img.shields.io/github/license/chala751s-projects/vote-app)
+![Deploy on Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-First, run the development server:
+A simple voting web app where users can vote between **Ronaldo** and **Messi** once.  
+Built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and deployed on **Netlify**.
+
+---
+
+## 🚀 Features
+
+- ✅ One-time voting per user (prevents multiple votes)
+- ⚡ Server-side vote counting
+- 🎨 Modern UI with Tailwind CSS
+- 📱 Fully responsive design
+- 🔒 Simple backend integration
+- 🌐 Deployed on Netlify
+
+---
+
+## 📂 Project Structure
+
+vote-app/
+├── app/ # Next.js App Router pages & layouts
+├── components/ # Reusable React components
+├── lib/ # Utility functions & DB connection
+├── public/ # Static files (images, icons, etc.)
+├── styles/ # Global and component styles
+├── .env.local # Environment variables
+└── README.md # Project documentation
+
+## 🛠️ Tech Stack
+
+- **Frontend:** [Next.js](https://nextjs.org), [React](https://react.dev), [TypeScript](https://www.typescriptlang.org)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com)
+- **Deployment:** [Netlify](https://www.netlify.com)
+- **Version Control:** [GitHub](https://github.com)
+
+---
+
+## 🖥️ Getting Started
+
+### 1️⃣ Clone the repository
 
 ```bash
+git clone https://github.com/chala751s-projects/vote-app.git
+cd vote-app
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+Deploy 🚀 comming soon!
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
